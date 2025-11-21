@@ -19,6 +19,9 @@ class Settings(BaseSettings):
     firebase_credentials_path: str = Field(..., alias="FIREBASE_CREDENTIALS_PATH")
     firebase_storage_bucket: str = Field(..., alias="FIREBASE_STORAGE_BUCKET")
 
+    gemini_api_key: str = Field(..., alias="GEMINI_API_KEY")
+
+
     model_config = SettingsConfigDict(
         env_file=".env",
         env_file_encoding="utf-8",

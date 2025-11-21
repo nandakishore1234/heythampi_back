@@ -8,9 +8,9 @@ from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.db.base import Base
-from app.models.enums import StorageProvider
+from app.models.enums import LearningLevel, StorageProvider
 from app.models.mixins import TimestampMixin
-from app.models.types import storage_provider_enum
+from app.models.types import learning_level_enum, storage_provider_enum
 
 if TYPE_CHECKING:
     from app.models.content import Lesson
@@ -28,6 +28,7 @@ class MemeContext(TimestampMixin, Base):
     context_text_en: Mapped[str] = mapped_column(Text, nullable=False)
     explanation_notes: Mapped[str | None] = mapped_column(Text)
     source_url: Mapped[str | None] = mapped_column(String(512))
+    level: Mapped[LearningLevel] = mapped_column(learning_level_enum.copy(), nullable=False, server_default="beginner")
     is_active: Mapped[bool] = mapped_column(Boolean, nullable=False, server_default="true")
 
     lesson: Mapped["Lesson"] = relationship(back_populates="meme_contexts")
